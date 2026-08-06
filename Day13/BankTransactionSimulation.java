@@ -1,3 +1,5 @@
+//  this program demonstrates the race condition which leads the unpredictable outputs.
+// synchronized threads ensures that only one threads execute at a time and the protected code is safe and the results are accurate.
 
 class Account {
 
@@ -8,7 +10,7 @@ class Account {
         this.ownerName = ownerName;
     }
 
-    public void deposit(double amount) {
+    public synchronized void deposit(double amount) {
         if (amount < 0) {
             System.out.println("Please enter the valid amount.");
         } else {
@@ -16,7 +18,7 @@ class Account {
         }
     }
 
-    public void withdraw(double amount) {
+    public synchronized void withdraw(double amount) {
         if (amount > balance) {
             System.out.println("Insufficient balance !");
         } else if (amount <= 0) {
@@ -41,6 +43,10 @@ public class BankTransactionSimulation {
     public static void main(String[] args) {
 
         Account accnt1 = new Account("Ritesh Hood");
+
+
+        // here threads overwritten the actual balance , leads to inaccurate result after the operation performed due to race condition.
+        // to handle this situation java provides the "synchronized keyword."
 
         Thread deposit = new Thread(() -> {
             try {
