@@ -34,7 +34,7 @@ public class demoMultithreading {
         Letters l = new Letters();
 
         n.start();
-        // l.start();
+        l.start();
 
     }
 
