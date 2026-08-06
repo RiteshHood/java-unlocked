@@ -1,5 +1,4 @@
 
-
 class Account {
 
     private double balance = 10000;
@@ -45,12 +44,12 @@ public class BankTransactionSimulation {
 
         Thread deposit = new Thread(() -> {
             try {
-                int i=0;
-                while(i<5){
+                int i = 0;
+                while (i < 5) {
                     accnt1.deposit(200);
-                System.out.println("Current balance after deposit: " +accnt1.getBalance());
-                Thread.sleep(800);
-                i++;
+                    System.out.println("Current balance after deposit: " + accnt1.getBalance());
+                    Thread.sleep(800);
+                    i++;
                 }
             } catch (Exception e) {
                 System.out.println(e);
@@ -59,12 +58,12 @@ public class BankTransactionSimulation {
 
         Thread withdraw = new Thread(() -> {
             try {
-                int i=0;
-                while(i<5){
+                int i = 0;
+                while (i < 5) {
                     accnt1.withdraw(100);
-                System.out.println("Current balance after withdraw : " +accnt1.getBalance());
-                Thread.sleep(800);
-                i++;
+                    System.out.println("Current balance after withdraw : " + accnt1.getBalance());
+                    Thread.sleep(800);
+                    i++;
                 }
             } catch (Exception e) {
                 System.out.println(e);
@@ -74,10 +73,16 @@ public class BankTransactionSimulation {
         deposit.start();
         withdraw.start();
 
+        try {
+            deposit.join();
+            withdraw.join();
 
+            System.out.println("============ Final Account Details ===============");
+            accnt1.getDetails();
 
-
-        
+        } catch (InterruptedException e) {
+            System.out.println(e);
+        }
 
     }
 }
