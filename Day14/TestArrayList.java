@@ -56,9 +56,15 @@ public class TestArrayList {
                     addStudent(sc, students);
                     break;
                 case 2:
-                    ViewAllStudent(students);
+                    viewAllStudents(students);
                     break;
                 case 3:
+                    searchStudent(sc, students);
+                case 4:
+                    updateStudent(sc, students);
+                default:
+                    System.out.println("Invalid choice");
+                    break;
 
             }
 
@@ -70,26 +76,26 @@ public class TestArrayList {
 
         System.out.println("Enter student id: ");
         int id = sc.nextInt();
+        sc.nextLine();
 
         System.out.println("Enter Student Name: ");
         String stdName = sc.nextLine();
-        sc.nextLine();
 
         System.out.println("Enter the Student Age: ");
         int stdAge = sc.nextInt();
+        sc.nextLine();
 
         System.out.println("Enter the Student Course: ");
         String stdCourse = sc.nextLine();
-        sc.nextLine();
 
         System.out.println("Enter the Student Marks: ");
         int stdMarks = sc.nextInt();
 
-        Student student = new Student(101, "Ritesh", 20, "MCA", 88);
+        Student student = new Student(id, stdName, stdAge, stdCourse, stdMarks);
         students.add(student);
     }
 
-    public static void ViewAllStudent(ArrayList<Student> students) {
+    public static void viewAllStudents(ArrayList<Student> students) {
         if (students.isEmpty()) {
             System.out.println("No student found");
             return;
@@ -99,15 +105,71 @@ public class TestArrayList {
         }
     }
 
-    public static void SearchStudent() {
+    public static void searchStudent(Scanner sc, ArrayList<Student> students) {
+
+        System.out.println("Enter the Student name: ");
+        String searchName = sc.nextLine();
+        if (students.isEmpty()) {
+            System.out.println("No Student found");
+        }
+        for (Student student : students) {
+            if (searchName.equals(student.name)) {
+
+                System.out.println(student);
+            }
+        }
 
     }
 
-    public static void updateStudent() {
+    public static void updateStudent(Scanner sc, ArrayList<Student> students) {
+        System.out.println("Enter the student Id to update:  ");
+        int targetId = sc.nextInt();
+        sc.nextLine();
 
+        boolean idFound = false;
+
+        for (Student student : students) {
+            if (targetId == student.id) {
+                idFound = true;
+                System.out.println("Id found !");
+                System.out.println("choose what to update: ");
+                int choice = sc.nextInt();
+                sc.nextLine();
+
+                switch (choice) {
+                    case 1:
+                        System.out.println("Enter new name: ");
+                        String newName = sc.nextLine();
+                        student.name = newName;
+                        break;
+                    case 2:
+                        System.out.println("Enter the new Age: ");
+                        int newAge = sc.nextInt();
+                        sc.nextLine();
+                        student.age = newAge;
+                        break;
+                    case 3:
+                        System.out.println("Enter new Marks: ");
+                        int newMarks = sc.nextInt();
+                        student.marks = newMarks;
+                        sc.nextLine();
+                        break;
+                    case 4:
+                        System.out.println("Enter new Course: ");
+                        String newCourse = sc.nextLine();
+                        student.course = newCourse;
+                        break;
+                    default:
+                        System.out.println("Invalid choice");
+                        break;
+                }
+
+            break;
+            }
+        }
+        if(!idFound){
+            System.out.println("ID not found");
+        }
     }
 
-    private static void addStudent() {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
 }
