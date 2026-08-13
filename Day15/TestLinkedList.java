@@ -19,17 +19,16 @@ public class TestLinkedList {
         numbers.addFirst(5);
         numbers.addLast(40);
         System.out.println(numbers);
-        System.out.println("The element 2nd position: "+numbers.get(2));
-        System.out.println("The first element: "+numbers.getFirst());
-        System.out.println("The last element: "+numbers.getLast());
+        System.out.println("The element 2nd position: " + numbers.get(2));
+        System.out.println("The first element: " + numbers.getFirst());
+        System.out.println("The last element: " + numbers.getLast());
 
         numbers.remove(1);
         numbers.removeFirst();
         numbers.removeLast();
-        
-        System.out.println("size of the LinkedList: "+numbers.size());
-        System.out.println("is empty: " +numbers.isEmpty());
 
+        System.out.println("size of the LinkedList: " + numbers.size());
+        System.out.println("is empty: " + numbers.isEmpty());
 
     }
 }
