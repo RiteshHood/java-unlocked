@@ -64,6 +64,8 @@ public class TicketQManagement {
                 case 3:
                     serveCustomer(customers);
                     break;
+                case 4:
+                    searchCustomer(sc, customers);
                 case 7:
                     return;
                 default:
@@ -116,5 +118,26 @@ public class TicketQManagement {
         });
         serve.start();
 
+    }
+    public static void searchCustomer(Scanner sc , LinkedList<Customer> customers){
+        System.out.println("Enter the customer ID: ");
+        int targetId = sc.nextInt();
+        sc.nextLine();
+        boolean isFound = false;
+        if(customers.isEmpty()){
+            System.out.println("The queue is empty!");
+            return;
+        }
+        
+        // iterating over the linked List customers;
+        for(Customer customer : customers){
+            if(targetId == customer.customerId){
+                isFound=true;
+                System.out.println(customer);
+            }
+        }
+        if(!isFound){
+            System.out.println("Customer not found");
+        }
     }
 }
