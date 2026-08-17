@@ -13,17 +13,16 @@ import java.util.Scanner;
 
 class Customer {
 
-    static int customerId;
+    int customerId;
     String customerName;
     String customerIssue;
     String priority;
 
     Customer(int id, String name, String issue, String priority) {
-        customerId = id;
-        customerName = name;
-        customerIssue = issue;
+        this.customerId = id;
+        this.customerName = name;
+        this.customerIssue = issue;
         this.priority = priority;
-
     }
 
     @Override
@@ -66,6 +65,13 @@ public class TicketQManagement {
                     break;
                 case 4:
                     searchCustomer(sc, customers);
+                    break;
+                case 5:
+                    removeCustomer(sc, customers);
+                    break;
+                case 6:
+                    totalCustomers(customers);
+                    break;
                 case 7:
                     return;
                 default:
@@ -89,10 +95,13 @@ public class TicketQManagement {
 
         Customer newCustomer = new Customer(id, name, issue, priority);
         customers.addLast(newCustomer);
-
     }
 
     public static void viewCustomers(LinkedList<Customer> customers) {
+        if (customers.isEmpty()) {
+            System.out.println("The customer queue is empty!");
+            return;
+        }
         System.out.println(customers);
     }
 
@@ -119,25 +128,59 @@ public class TicketQManagement {
         serve.start();
 
     }
-    public static void searchCustomer(Scanner sc , LinkedList<Customer> customers){
+
+    public static void searchCustomer(Scanner sc, LinkedList<Customer> customers) {
         System.out.println("Enter the customer ID: ");
         int targetId = sc.nextInt();
         sc.nextLine();
         boolean isFound = false;
-        if(customers.isEmpty()){
+        if (customers.isEmpty()) {
             System.out.println("The queue is empty!");
             return;
         }
-        
+
         // iterating over the linked List customers;
-        for(Customer customer : customers){
-            if(targetId == customer.customerId){
-                isFound=true;
+        for (Customer customer : customers) {
+            if (targetId == customer.customerId) {
+                isFound = true;
                 System.out.println(customer);
             }
         }
-        if(!isFound){
+        if (!isFound) {
             System.out.println("Customer not found");
         }
     }
+
+    public static void removeCustomer(Scanner sc, LinkedList<Customer> customers) {
+        System.out.println("Enter customer Id to remove");
+        int remId = sc.nextInt();
+        sc.nextLine();
+
+        boolean isFound = false;
+        if (customers.isEmpty()) {
+            System.out.println("The queue is empty!");
+            return;
+        }
+
+        // use this loop isntead of for each loop because using it may through concurrent modification exception when we modify the list while iterating it.
+        for (int i = 0; i < customers.size(); i++) {
+            Customer customer = customers.get(i);
+            if (remId == customer.customerId) {
+                isFound = true;
+                customers.remove(i);
+                System.out.println("customer is removed!");
+                break;
+            }
+        }
+        if (!isFound) {
+            System.out.println("Customer not found!");
+        }
+
+    }
+
+    private static void totalCustomers(LinkedList<Customer> customers) {
+        System.out.println("The total customers are : " + customers.size());
+
+    }
+
 }
